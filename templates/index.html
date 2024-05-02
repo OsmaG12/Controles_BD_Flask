@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Mi aplicación Flask</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+</head>
+
+<body>
+
+    <nav class="navbar navbar-expand-lg " style="background-color: navy;">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="#"><strong style="color: white;">FLASK</strong></a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup"
+                aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+                <div class="navbar-nav">
+                    <a class="nav-link active" aria-current="page" href="#" style="color: white;">Inicio</a>
+                    <a class="nav-link" href="#seccion_tabla" style="color: white;">Datos</a>
+                    <a class="nav-link" href="#" style="color: white;">Politicas</a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container">
+
+        <div class="text-center m-5">
+            <h1>¿Qué desea hacer?</h1>
+        </div>
+
+        <div class="m-5">
+            <table class="table table-sm table-centered">
+                <tbody>
+                    <tr>
+                        <td class="text-center">
+                            <form action="{{ url_for('agregar') }}" method="GET">
+                                <button class="btn btn-primary" type="submit">Agregar Registro</button>
+                            </form>
+                        </td>
+                        <td class="text-center">
+                            <form action="{{ url_for('irModificar') }}" method="GET">
+                            <button class="btn btn-primary" type="submit">Modificar Registro</button>
+                        </form>
+                    </td>
+                        <td class="text-center"><button class="btn btn-primary"><a
+                                    style="text-decoration: none; color: inherit" ;>Eliminar Registro</a></button></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+
+    </div>
+
+    <footer class="mt-5" style="background-color: #333; color: white; padding: 20px;">
+        <div style="max-width: 1200px; margin: 0 auto;">
+            <div style="display: flex; justify-content: space-between; flex-wrap: wrap;">
+                <div style="width: 30%; margin-bottom: 20px;">
+                    <h3>Enlaces Útiles</h3>
+                    <ul style="list-style-type: none; padding: 0;">
+                        <li><a href="#" style="color: white; text-decoration: none;">Inicio</a></li>
+                        <li><a href="#" style="color: white; text-decoration: none;">Acerca de Nosotros</a></li>
+                        <li><a href="#" style="color: white; text-decoration: none;">Servicios</a></li>
+                        <li><a href="#" style="color: white; text-decoration: none;">Contacto</a></li>
+                    </ul>
+                </div>
+                <div style="width: 30%; margin-bottom: 20px;">
+                    <h3>Recursos</h3>
+                    <ul style="list-style-type: none; padding: 0;">
+                        <li><a href="#" style="color: white; text-decoration: none;">Blog</a></li>
+                        <li><a href="#" style="color: white; text-decoration: none;">FAQ</a></li>
+                        <li><a href="#" style="color: white; text-decoration: none;">Política de Privacidad</a></li>
+                        <li><a href="#" style="color: white; text-decoration: none;">Términos de Servicio</a></li>
+                    </ul>
+                </div>
+                <div style="width: 30%; margin-bottom: 20px;">
+                    <h3>Contacto</h3>
+                    <p>Dirección: 123 Calle Principal, Ciudad, País</p>
+                    <p>Teléfono: +1234567890</p>
+                    <p>Email: info@example.com</p>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
+        crossorigin="anonymous"></script>
+</body>
+
+</html>
