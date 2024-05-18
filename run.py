@@ -1,43 +1,25 @@
-#Librerias para que funcione SqlAlchemy que es un ORM
+from flask import Flask, render_template, request
+from flask import Flask, render_template, request, redirect, url_for
+from sqlalchemy import Column, Integer, String
 from flask_sqlalchemy import SQLAlchemy
 from pymysql import connect
-from sqlalchemy import Column, Integer, String
-from sqlalchemy.ext.declarative import declarative_base
-from flask import Flask, render_template, request, redirect, url_for
-from sqlalchemy import create_engine
-from sqlalchemy.ext.declarative import declarative_base
-from sqlalchemy.orm import sessionmaker
+
 
 app = Flask(__name__)
 
-Base = declarative_base()
-
-#Aqui se hace el modelado de la tabla
-class User(Base):
-    __tablename__ = 'usuarios'#Nombre de la tabla que se modela
-
-    id = Column(Integer, primary_key=True, autoincrement=True)
-    nombre = Column(String(45), unique=True, nullable=False)
-    correo = Column(String(100), unique=True, nullable=False)
-    pais = Column(String(45), unique=True, nullable=False)
-
-#Aqui ya se hace la conexion a la BD
-DATABASE_HOST = 'localhost'
-DATABASE_NAME = 'ejemploDB'#Nombre de la base de datos
-DATABASE_USERNAME = 'sa'
-DATABASE_PASSWORD = '12345'#Contraseña
-
-SQLALCHEMY_DATABASE_URI = f'mssql+pyodbc://{DATABASE_USERNAME}:{DATABASE_PASSWORD}@{DATABASE_HOST}/{DATABASE_NAME}?driver=ODBC Driver 17 for SQL Server'#Esto del final es el JDBC
-app.config['SQLALCHEMY_DATABASE_URI'] = SQLALCHEMY_DATABASE_URI
+# Configuration for the database
+app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+pymysql://root:Frutillita12@localhost:3306/ejemplodb'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
-
-engine = create_engine(app.config['SQLALCHEMY_DATABASE_URI'])
-SessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)
-Base.metadata.create_all(bind=engine)
 
 db = SQLAlchemy(app)
 
-# Rutas de ejemplo
+# Model definition for users
+class User(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    nombre = db.Column(db.String(45), nullable=False)
+    correo = db.Column(db.String(100), unique=True, nullable=False)
+    pais = db.Column(db.String(45), nullable=False)
+
 @app.route('/')
 def index():
     usuarios = db.session.query(User).all()
@@ -57,12 +39,12 @@ def crear_usuario():
     nuevo_usuario = User(nombre=nombre, correo=correo, pais=pais)
     db.session.add(nuevo_usuario)
     db.session.commit()
-    return redirect(url_for('obtener_usuarios'))  # O redirecciona a otra página
+    return redirect(url_for('obtener_usuarios'))
 
 
 @app.route('/obtener_usuarios')
 def obtener_usuarios():
-    usuarios = db.session.query(User).all()  # Use db.session
+    usuarios = db.session.query(User).all()
     return render_template('usuarios.html', usuarios=usuarios)
 
 
